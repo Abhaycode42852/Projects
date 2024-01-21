@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .container {
+            background-color: antiquewhite;
+            color: black;
+        }
+    </style>
+    <script>
+        let a;
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        let date;
+        let time;
+        let secound;
+        let Hours;
+        let minutes;
+        setInterval(() => {
+            a = new Date();
+            let i = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            date = a.toLocaleDateString(undefined, options);
+            if (a.getSeconds() in i) {
+                secound = ("0" + a.getSeconds());
+            }
+            else{
+                secound= a.getSeconds()
+            }
+            
+            if (a.getMinutes() in i) {
+                    minutes = ("0" + a.getMinutes());
+                }
+            else{
+                minutes= a.getMinutes()
+            }
+            if (a.getHours() in i) {
+                    Hours = ("0" + a.getHours());
+                }
+            else{
+                if (a.getHours()>12){
+                    Hours=a.getHours()-12;
+                }
+                else{
+                    Hours=a.getHours();
+                }
+            }
+                time = Hours + ':' + minutes + ':' + secound;
+            document.getElementById('time').innerHTML = time + "<br> on " + date;
+        }, 1000);
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <div class="container" my-4>
+        <div class="jumbotron">
+            <h1 class="display-4">CURRENT TIME is:<span id="time"></span></h1>
+            <p class="lead">this is a simple clock made using java script</p>
+            <hr class="my-4">
+            <p>We are here to show Times across the Global</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button"></a>
+        </div>
+    </div>
+</body>
+
+</html>

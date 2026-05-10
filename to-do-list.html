@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TO-DO list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        #clear {
+            position: relative;
+            top: -5vh;
+            left: 79vw;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TO-DO list</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Contact
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">tel no. :-684651321</a></li>
+                            <li><a class="dropdown-item" href="#">Email:- bsibxq@inidia.com</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li> -->
+                            <!-- <li><a class="dropdown-item" href="#">
+                                    <Address>INDIA</Address>
+                                </a></li>
+                        </ul> -->
+                    <!-- </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" aria-disabled="true">Disabled</a>
+                    </li> -->
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                <div class=" mx-2">
+                    <div style="color: white;">
+                        <h6><span id="time"></span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
+    </nav>
+    <div class="container">
+        <h3 class="text-center">TODAY's WORK</h3>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="enter title">
+        </div>
+        <div class="mb-3">
+            <label for="discription" class="form-label">Description</label>
+            <textarea class="form-control" id="discription" rows="3"></textarea>
+            <form><button type="submit" id="add" class="btn btn-primary my-2" onclick="update1()">Add to LIST</button></form>
+            <button type="submit" id="clear" class="btn btn-sm btn-danger" onclick="clean()">CLEAR LIST</button>
+        </div>
+        <div class="items">
+            <h3>YOUR ITEMS</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sr No.</th>
+                        <th scope="col">Items Title</th>
+                        <th scope="col">Items Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <!-- <tr>
+                        <th scope="row">1</th>
+                        <td>COFFEE</td>
+                        <td>You need coffee as you are a coder</td>
+                        <td><button class="btn btn-sm btn-primary">DELETE</button></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script>
+        let a;
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let date;
+    let time;
+    let minutes;
+    let maridain;
+
+    setInterval(() => {
+        a = new Date()
+        if (a.getHours() >= 12 && a.getMinutes() >= 0) {
+            maridain = "PM"
+        }
+        else {
+            maridain = "AM"
+        }
+        let i = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        date = a.toLocaleDateString(undefined, options);
+        let c = a.getHours();
+        if (c in i){
+                c="0"+c
+            }
+        if (c > 12) {
+            c = c - 12;
+        }
+        if (a.getMinutes() in i) {
+            minutes = ("0" + a.getMinutes());
+            time = c + ':' + minutes + " " + maridain;
+        }
+        else {
+            time = c + ':' + a.getMinutes() + " " + maridain;
+        }
+        document.getElementById('time').innerHTML = time + "<br> on " + date;
+    }, 1000);
+    
+        function upadte() {
+            if (localStorage.getItem('itemjson') == null) {
+                itemjsonArry = [];
+                localStorage.setItem('itemjson', JSON.stringify(itemjsonArry));
+            }
+            else {
+                let itemjsonArrystr = localStorage.getItem("itemjson");
+                itemjsonArry = JSON.parse(itemjsonArrystr);
+                // localStorage.setItem('itemjson', JSON.stringify(itemjsonArry));
+                }
+            let tb = document.getElementById("tbody");
+            let str = ``;
+            itemjsonArry.forEach((i, index) => {
+                str += `<tr>
+                    <th scope="row">${index + 1}</th>
+                    <td>${i[0]}</td>
+                    <td>${i[1]}</td>
+                    <td><button class="btn btn-sm btn-primary" onclick="remove(${index})">DELETE</button></td>
+                    </tr>`
+                });
+            tb.innerHTML=str;
+        }
+        function remove(itemindex) {
+            let itemjsonArrystr = localStorage.getItem("itemjson");
+            itemjsonArry = JSON.parse(itemjsonArrystr);
+            itemjsonArry.splice(itemindex, 1);
+            localStorage.setItem('itemjson', JSON.stringify(itemjsonArry));
+            upadte();
+        }
+        // let itemjsonArry=[];
+        function update1() {
+            tit = document.getElementById('title').value;
+            desc = document.getElementById('discription').value;
+            if (localStorage.getItem('itemjson') == null) {
+                itemjsonArry = [];
+                let arry = [];
+                arry.push(tit, desc);
+                itemjsonArry.push(arry);
+                localStorage.setItem('itemjson', JSON.stringify(itemjsonArry));
+            }
+            else {
+                let itemjsonArrystr = localStorage.getItem("itemjson");
+                itemjsonArry = JSON.parse(itemjsonArrystr);
+                arry = [];
+                arry.push(tit, desc);
+                itemjsonArry.push(arry);
+                localStorage.setItem('itemjson', JSON.stringify(itemjsonArry));
+            }
+            update();
+        }
+        function clean() {
+            if (confirm("DO YOU REALLY WANT TO CLEAR?")) {
+                localStorage.clear();
+            }
+            upadte()
+        }
+        setTimeout(upadte(),1000);
+    </script>
+</body>
+
+</html>
